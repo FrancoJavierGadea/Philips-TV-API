@@ -1,0 +1,56 @@
+<html>
+<head><title>JointSpace API Documentation</title></head>
+<body>
+    <h1>JointSpace API Documentation</h1>
+    
+    <h2>Getting Started</h2>
+    
+    <h3>Using a REST API</h3>
+
+    <p>A REST API is provided through a webserver. To use a REST API applications need to send standard HTTP requests to the webserver.
+    
+    <p>The JointSpace API is provided through a webserver in the TV.  It accepts HTTP requests on port 1925. Two HTTP methods are supported.
+    
+    <ul>
+        <li>GET is used to retrieve data from the TV.
+        <li>POST is used to send data to the TV and make the TV execute certain operations.
+    </ul>
+    
+    <p>The exact data to be retrieved or operation to be executed is specified in the path passed in the HTTP request.  E.g. to read the current volume setting of the TV one has to send a GET request to <tt>http://<em>ip-address-of-tv</em>:1925/1/audio/volume</tt>.  The TV will send the current volume setting in the HTTP response.
+    
+    <p>Parameters for operations are passed in the body of the POST request.  E.g. to change the current volume setting of the TV one has to send a POST request to <tt>http://<em>ip-address-of-tv</em>:1925/1/audio/volume</tt> with the desired volume setting encoded in the body of the request.
+    
+    <p>See the <a href="API.html">API reference</a> for an overview of all supported GET and POST requests.
+    
+    <h3>Data representation</h3>
+
+    <p>All data, both accepted by the TV in POST requests and returned by the TV in GET requests, is in JSON format.
+
+    <p>Optionally JSONP can be enabled as response format for GET requests. To enable JSONP a callback function must be specified as a query parameter named <tt>callback</tt>.  E.g. to retrieve the current volume setting of the TV in JSONP format one has to send a GET request to <tt>http://<em>ip-address-of-tv</em>:1925/1/audio/volume?callback=mycallbackfunc</tt>.
+
+    <p>See the <a href="API.html">API reference</a> for a detailed description of the data format for each supported request.
+    
+
+    <h3>HTTP status codes</h3>
+    
+    Success of GET and POST requests is indicated with HTTP status codes.  The following status codes are used.
+    
+    <dl>
+        <dt>200
+        <dd>The request completed succesfully.
+            
+        <dt>400
+        <dd>The data sent with a POST request was not in correct JSON format.
+            
+        <dt>404
+        <dd>An incorrect path was specified in the GET or POST request.
+            
+        <dt>405
+        <dd>A method other the GET or POST was used.
+        
+        <dt>503
+        <dd>The request could not be executed due to unavailability of system resources.
+    </dl>
+    
+</body>
+</html>
